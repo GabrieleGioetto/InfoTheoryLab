@@ -1,4 +1,4 @@
-% H: M x N ?
+% H: N X M?
 
 % H_los: all elements equal to 1
 
@@ -28,7 +28,7 @@ for i = 1:total_iterations
     %H = ones(M,N) + norm(M,N);
     % H = randn(M,N);
 
-    H = ones(M, N);
+    H = ones(N, M);
     
     Identity_N = eye(N);
     Identity_M = eye(M);
@@ -38,17 +38,19 @@ for i = 1:total_iterations
     
     trace_Q = trace(Q);
     
-    Capacities(1, i) = log2(det(Identity_N + H*Q*transpose(H)));
+    Capacities(1, i) = log2(det(Identity_N + H*Q*ctranspose(H)));
 end
 
-title('Histogram of B', 'FontSize', fontSize);
-ylabel('Count B', 'FontSize', fontSize);
-xlabel('Values of B', 'FontSize', fontSize);
-grid on;
+cdfplot(Capacities)
 
-values = unique([-20 Capacities 20]);             %// obtain values where CDF should be computed
-F = cumsum(histc(Capacities, values))/numel(Capacities);   %// compute CDF
-stairs(values, F)                        %// do the plot
-axis([min(values) max(values) -.2 1.2])  %// adjust axes
-
-
+% values = unique([-20 Capacities 20]);             %// obtain values where CDF should be computed
+% F = cumsum(histc(Capacities, values))/numel(Capacities);   %// compute CDF
+% stairs(values, F)                        %// do the plot
+% axis([min(values) max(values) -.2 1.2])  %// adjust axes
+% 
+% fontSize = 15;
+% title('cdf of Capacities (AWGN)', 'FontSize', fontSize);
+% ylabel('cdf', 'FontSize', fontSize);
+% xlabel('Capacity', 'FontSize', fontSize);
+% grid on;
+% 

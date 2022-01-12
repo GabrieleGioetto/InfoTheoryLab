@@ -9,16 +9,13 @@
 
 % generate H using randN
 
-% ES 1
+% ES 3
+% Compute and plot separately the CDF of capacity for the case of MISO fading
+% (K = 0) channel at 10 dB SNR, with M = 3 transmit antennas with no CSIT.
 
-% Compute and plot the CDF of capacity for the 
-% case of SISO AWGN( K = infinite ?) and SISO Rayleigh fading 
-% channel (K=0) at 10 dB SNR.
-% SISO -> N = 1, M = 1
-
-% SISO Rayleigh
+% MISO fading
 N = 1;
-M = 1;
+M = 3;
 
 total_iterations = 200;
 
@@ -26,7 +23,7 @@ Capacities = zeros(1, total_iterations);
 
 for j = 1:total_iterations
     % H must be complex
-    H = (1/sqrt(2))*(randn(N, M) + i*randn(N,M));
+    H = (1/sqrt(2))* (randn(N, M) + 1i*randn(N, M));
         
     Identity_N = eye(N);
     Identity_M = eye(M);
@@ -40,7 +37,3 @@ for j = 1:total_iterations
 end
 
 cdfplot(Capacities)
-
-
-
-

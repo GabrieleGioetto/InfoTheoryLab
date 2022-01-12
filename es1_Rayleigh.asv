@@ -16,7 +16,7 @@
 % channel (K=0) at 10 dB SNR.
 % SISO -> N = 1, M = 1
 
-% SISO AWGN
+% SISO Rayleigh
 N = 1;
 M = 1;
 
@@ -24,11 +24,18 @@ total_iterations = 200;
 
 Capacities = zeros(1, total_iterations);
 
-for i = 1:total_iterations
-    %H = ones(M,N) + norm(M,N);
-    % H = randn(M,N);
+for j = 1:total_iterations
+    % H must be complex
+    H = (1/sqrt(2))*(randn(1, 1) + i*randn(1,1));
+    
+    % Normalize
+    H_norm = H / sqrt( sum( H.^2 ) );
 
-    H = ones(M, N);
+    real(H)
+    imag(H)
+
+    
+    
     
     Identity_N = eye(N);
     Identity_M = eye(M);
@@ -36,19 +43,23 @@ for i = 1:total_iterations
     P = 10;
     Q = (P/M)*Identity_M;
     
-    trace_Q = trace(Q);
+    trace_Q = trace(Q)
     
-    Capacities(1, i) = log2(det(Identity_N + H*Q*transpose(H)));
+    Capacities(j) = log2(det(Identity_N + H_norm*Q*transpose(H_norm)));
 end
 
-title('Histogram of B', 'FontSize', fontSize);
-ylabel('Count B', 'FontSize', fontSize);
-xlabel('Values of B', 'FontSize', fontSize);
-grid on;
 
 values = unique([-20 Capacities 20]);             %// obtain values where CDF should be computed
 F = cumsum(histc(Capacities, values))/numel(Capacities);   %// compute CDF
 stairs(values, F)                        %// do the plot
 axis([min(values) max(values) -.2 1.2])  %// adjust axes
+
+fontSize = 15
+title('cdf of Capacities (Reileigh)', 'FontSize', fontSize);
+ylabel('cdf', 'FontSize', fontSize);
+xlabel('Capacity', 'FontSize', fontSize);
+grid on;
+
+
 
 
