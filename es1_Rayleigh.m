@@ -40,6 +40,10 @@ for j = 1:total_iterations
 end
 
 cdfplot(Capacities)
+xlabel("Capacity")
+ylabel("Cumulative of capacity")
+title('K = 0, SISO: M = 1, N = 1')
+
 
 
 

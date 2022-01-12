@@ -1,8 +1,8 @@
-% ES 4
+% ES 5
 
-% Compute and plot separately the CDF of capacity for the case of MISO fading
-% (K = 0) channel at 10 dB SNR, with M = 3 transmit antennas and N = 3 receive
-% antennas.
+% Compute and plot separately the CDF of capacity for the case of MIMO Ricean
+% (K = 20) channel at 10 dB SNR, with M = 3 transmit antennas and N = 3
+% receive antennas.
 % First: with no CSIT.
 % Second: With CSIT (in the same plot).
 
@@ -10,13 +10,19 @@
 N = 3;
 M = 3;
 
+K = 20
+
 total_iterations = 200;
 Capacities_no_feedback = zeros(1, total_iterations);
 
 for j = 1:total_iterations
     % H must be complex
-    H = (1/sqrt(2)) * (randn(N, M) + 1i*randn(N, M));
-        
+    H_r = (1/sqrt(2)) * (randn(N, M) + 1i*randn(N, M));
+    H_los = ones(N, M);
+
+    H = sqrt(K / (K + 1)) * H_los + sqrt(1 / (K + 1))*H_r;
+
+
     Identity_N = eye(N);
     Identity_M = eye(M);
     
@@ -33,7 +39,10 @@ Capacities_feedback = zeros(1, total_iterations);
 
 for j = 1:total_iterations
     % H must be complex
-    H = (1/sqrt(2)) * (randn(N, M) + 1i*randn(N, M));
+    H_r = (1/sqrt(2)) * (randn(N, M) + 1i*randn(N, M));
+    H_los = ones(N, M);
+
+    H = sqrt(K / (K + 1)) * H_los + sqrt(1 / (K + 1))*H_r;
         
     Identity_N = eye(N);
     Identity_M = eye(M);
@@ -41,7 +50,6 @@ for j = 1:total_iterations
     P = 10;
     u = zeros(1, min(M,N));
     
-    % TODO: get the values of the iteration before the last
     trace_Q = 0;
     Q = zeros(min(N,M), min(N,M));
 
@@ -79,6 +87,6 @@ cdfplot(Capacities_no_feedback)
 legend("CSIT", "No CSIT")
 xlabel("Capacity")
 ylabel("Cumulative of capacity")
-title('K = 0, MIMO: M = N = 3')
+title('K = 20, MIMO: M = N = 3')
 
 

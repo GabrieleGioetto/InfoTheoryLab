@@ -42,6 +42,10 @@ for i = 1:total_iterations
 end
 
 cdfplot(Capacities)
+xlabel("Capacity")
+ylabel("Cumulative of capacity")
+title('K = infinite, SISO: M = 1, N = 1')
+
 
 % values = unique([-20 Capacities 20]);             %// obtain values where CDF should be computed
 % F = cumsum(histc(Capacities, values))/numel(Capacities);   %// compute CDF
