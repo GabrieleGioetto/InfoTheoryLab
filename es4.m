@@ -52,7 +52,8 @@ for j = 1:total_iterations
         [U,S,V] = svd(H);
 
         % x = 0 if x < 0, x = x if x >= 0
-        
+        S = S .^ 2;
+
         % get A
         a = (u - ones(1, min(M,N)) / diag(S)');
         a = max(a,0);
@@ -61,7 +62,7 @@ for j = 1:total_iterations
         
         trace_Q = trace(Q);
 
-        u = u + 0.01;
+        u = u + 0.001;
     end
     
     % We get last value of Q that does not exceed power requirement
