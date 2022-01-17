@@ -26,7 +26,7 @@ Capacities = zeros(1, total_iterations);
 
 for j = 1:total_iterations
     % H must be complex
-    H = (1/sqrt(2))*(randn(N, M) + i*randn(N,M));
+    H = (1/sqrt(2))* (randn(N, M) + 1i*randn(N, M));
         
     Identity_N = eye(N);
     Identity_M = eye(M);

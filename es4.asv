@@ -60,11 +60,10 @@ for j = 1:total_iterations
         % a = 0 if a < 0, a = a if a >= 0
         A = max(A, 0);
 
-        % add the zeros in case M > N
         if M > N
             A_updated = [A; zero_matrix];
-        elseif M < N
-            A_updated = A(1:M,1:M);
+        else
+            A_updated = A
         end
 
         Q = V * A_updated * ctranspose(V);

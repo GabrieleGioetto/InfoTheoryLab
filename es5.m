@@ -53,13 +53,12 @@ for j = 1:total_iterations
     trace_Q = 0;
     Q = zeros(min(N,M), min(N,M));
 
-    while trace_Q < P
+    [U,S,V] = svd(H);
+    S = S .^ 2;
 
+    while trace_Q < P
         prev_Q = Q;
 
-        [U,S,V] = svd(H);
-
-        S = S .^ 2;
 
         % get A
         a = (u - ones(1, min(M,N)) ./ diag(S)');
