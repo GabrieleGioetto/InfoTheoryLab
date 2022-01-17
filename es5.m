@@ -8,7 +8,7 @@
 
 % MIMO fading
 N = 3;
-M = 3;
+M = 10;
 
 K = 20
 

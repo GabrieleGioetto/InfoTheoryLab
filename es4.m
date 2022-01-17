@@ -7,7 +7,7 @@
 % Second: With CSIT (in the same plot).
 
 % MIMO fading
-N = 10;
+N = 3;
 M = 3;
 
 total_iterations = 200;
@@ -55,16 +55,19 @@ for j = 1:total_iterations
 
         % get A
         A = u - (1 ./ S);
-        A(A==Inf)=0;
 
         % a = 0 if a < 0, a = a if a >= 0
         A = max(A, 0);
+        A(A==Inf)=0;
+
 
         % add the zeros in case M > N
         if M > N
             A_updated = [A; zero_matrix];
         elseif M < N
             A_updated = A(1:M,1:M);
+        else
+            A_updated = A;
         end
 
         Q = V * A_updated * ctranspose(V);
@@ -87,5 +90,4 @@ legend("CSIT", "No CSIT")
 xlabel("Capacity")
 ylabel("Cumulative of capacity")
 title('K = 0, MIMO: M = N = 3')
-
 

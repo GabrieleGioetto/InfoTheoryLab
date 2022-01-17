@@ -4,33 +4,32 @@ max_avg_feed = 0;
 max_avg_no_feed_N = 0;
 max_avg_feed_N = 0;
 
-for N = 1:11
-    M = 12 - N;
-    K = 0
-    [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,0,100);
-
-    N
-    M
-    avg_throughput_no_feedback = median(Capacities_no_feedback)
-    avg_throughput_feedback = median(Capacities_feedback)
-
-    if avg_throughput_no_feedback > max_avg_no_feed
-        max_avg_no_feed = avg_throughput_no_feedback
-        max_avg_no_feed_N = N
-    end
-
-    if avg_throughput_feedback > max_avg_feed
-        max_avg_feed = avg_throughput_feedback
-        max_avg_feed_N = N
-    end
-end
+% for N = 1:11
+%     M = 12 - N
+%     [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,20,200);
+% 
+%     N
+%     M
+%     avg_throughput_no_feedback = median(Capacities_no_feedback)
+%     avg_throughput_feedback = median(Capacities_feedback)
+% 
+%     if avg_throughput_no_feedback > max_avg_no_feed
+%         max_avg_no_feed = avg_throughput_no_feedback
+%         max_avg_no_feed_N = N
+%     end
+% 
+%     if avg_throughput_feedback > max_avg_feed
+%         max_avg_feed = avg_throughput_feedback
+%         max_avg_feed_N = N
+%     end
+% end
 
 fprintf("---------------------------")
 
-max_avg_no_feed
-max_avg_feed
-max_avg_no_feed_N
-max_avg_feed_N
+% max_avg_no_feed
+% max_avg_feed
+% max_avg_no_feed_N
+% max_avg_feed_N
 
 % 
 % [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,3,20,200);
@@ -48,16 +47,15 @@ max_avg_feed_N
 % median(Capacities_feedback)
 % 
 
-% [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,0,200);
-% median(Capacities_no_feedback)
-% median(Capacities_feedback)
-% [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,50,200);
-% median(Capacities_no_feedback)
-% median(Capacities_feedback)
+[Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,0,200);
+[Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,,200);
+
+
+
 
 
 function [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,K, total_iterations)
-
+    
     Capacities_no_feedback = zeros(1, total_iterations);
     
     for j = 1:total_iterations
@@ -135,17 +133,6 @@ function [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,
         Q = prev_Q;
         
         Capacities_feedback(j) = log2(det(Identity_N + H*Q*ctranspose(H)));
-
     end
-
-
-%     cdfplot(Capacities_feedback)
-%     hold on;
-%     cdfplot(Capacities_no_feedback)
-%     legend("CSIT", "No CSIT")
-%     xlabel("Capacity")
-%     ylabel("Cumulative of capacity")
-%     title('K = 50/ K = 0, MIMO: M = N = 5')
-% 
 end
 
