@@ -42,7 +42,7 @@ for i = 1:total_iterations
 end
 
 cdfplot(Capacities)
-xlabel("Capacity")
+xlabel("Capacity [bit/s]")
 ylabel("Cumulative of capacity")
 title('K = infinite, SISO: M = 1, N = 1')
 

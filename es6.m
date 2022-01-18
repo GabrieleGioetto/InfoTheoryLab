@@ -4,33 +4,53 @@ max_avg_feed = 0;
 max_avg_no_feed_N = 0;
 max_avg_feed_N = 0;
 
+max_10_LOS = 0;
+max_10_LOS_N = 0;
+
 for N = 1:11
     M = 12 - N;
-    K = 0
-    [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,0,100);
+    K = 50;
 
-    N
-    M
-    avg_throughput_no_feedback = median(Capacities_no_feedback)
-    avg_throughput_feedback = median(Capacities_feedback)
+    [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,0,100);
+    [Capacities_no_feedback_LOS, Capacities_feedback_LOS] = calculate_capacities(N,M,K,100);
+
+    avg_throughput_no_feedback = median(real(Capacities_no_feedback));
+    avg_throughput_feedback = median(real(Capacities_feedback));
+    
+    ten_throughput_LOS = prctile(real(Capacities_no_feedback_LOS),10);
 
     if avg_throughput_no_feedback > max_avg_no_feed
-        max_avg_no_feed = avg_throughput_no_feedback
-        max_avg_no_feed_N = N
+        max_avg_no_feed = avg_throughput_no_feedback;
+        max_avg_no_feed_N = N;
     end
 
     if avg_throughput_feedback > max_avg_feed
-        max_avg_feed = avg_throughput_feedback
-        max_avg_feed_N = N
+        max_avg_feed = avg_throughput_feedback;
+        max_avg_feed_N = N;
     end
+
+    if ten_throughput_LOS > max_10_LOS
+        max_10_LOS = ten_throughput_LOS;
+        max_10_LOS_N = N;
+    end
+
 end
 
 fprintf("---------------------------")
 
 max_avg_no_feed
 max_avg_feed
+
+fprintf("---------------------------")
+
 max_avg_no_feed_N
 max_avg_feed_N
+
+fprintf("---------------------------")
+
+max_10_LOS
+max_10_LOS_N
+
 
 % 
 % [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,3,20,200);

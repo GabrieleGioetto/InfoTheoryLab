@@ -8,9 +8,9 @@
 
 % MIMO fading
 N = 3;
-M = 10;
+M = 3;
 
-K = 20
+K = 20;
 
 total_iterations = 200;
 Capacities_no_feedback = zeros(1, total_iterations);
@@ -84,7 +84,7 @@ cdfplot(Capacities_feedback)
 hold on;
 cdfplot(Capacities_no_feedback)
 legend("CSIT", "No CSIT")
-xlabel("Capacity")
+xlabel("Capacity [bit/s]")
 ylabel("Cumulative of capacity")
 title('K = 20, MIMO: M = N = 3')
 

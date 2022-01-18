@@ -87,7 +87,7 @@ cdfplot(Capacities_feedback)
 hold on;
 cdfplot(Capacities_no_feedback)
 legend("CSIT", "No CSIT")
-xlabel("Capacity")
+xlabel("Capacity [bit/s]")
 ylabel("Cumulative of capacity")
 title('K = 0, MIMO: M = N = 3')
 

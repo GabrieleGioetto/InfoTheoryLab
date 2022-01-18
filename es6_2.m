@@ -1,61 +1,40 @@
+% ES 6.2
+colors = ["r","b","g","k"];
 
-max_avg_no_feed = 0;
-max_avg_feed = 0;
-max_avg_no_feed_N = 0;
-max_avg_feed_N = 0;
+clear h;
 
-% for N = 1:11
-%     M = 12 - N
-%     [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,20,200);
-% 
-%     N
-%     M
-%     avg_throughput_no_feedback = median(Capacities_no_feedback)
-%     avg_throughput_feedback = median(Capacities_feedback)
-% 
-%     if avg_throughput_no_feedback > max_avg_no_feed
-%         max_avg_no_feed = avg_throughput_no_feedback
-%         max_avg_no_feed_N = N
-%     end
-% 
-%     if avg_throughput_feedback > max_avg_feed
-%         max_avg_feed = avg_throughput_feedback
-%         max_avg_feed_N = N
-%     end
-% end
+[h,Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,3,20,200, colors(1),1);
+h_tot(1,1) = h(1,1);
+h_tot(1,2) = h(1,2);
+median(Capacities_no_feedback)
+median(Capacities_feedback)
 
-fprintf("---------------------------")
+[h,Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,20,20,200, colors(2),2);
+h_tot(2,1) = h(1,1);
+h_tot(2,2) = h(1,2);
+median(Capacities_no_feedback)
+median(Capacities_feedback)
 
-% max_avg_no_feed
-% max_avg_feed
-% max_avg_no_feed_N
-% max_avg_feed_N
+[h,Capacities_no_feedback, Capacities_feedback] = calculate_capacities(20,3,20,200, colors(3),3);
+h_tot(3,1) = h(1,1);
+h_tot(3,2) = h(1,2);
+median(Capacities_no_feedback)
+median(Capacities_feedback)
 
-% 
-% [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,3,20,200);
-% median(Capacities_no_feedback)
-% median(Capacities_feedback)
-% [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,20,20,200);
-% median(Capacities_no_feedback)
-% median(Capacities_feedback)
-% [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(20,3,20,200);
-% median(Capacities_no_feedback)
-% median(Capacities_feedback)
-% 
-% [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(20,20,20,200);
-% median(Capacities_no_feedback)
-% median(Capacities_feedback)
-% 
+[h,Capacities_no_feedback, Capacities_feedback] = calculate_capacities(20,20,20,200, colors(4),4);
+h_tot(4,1) = h(1,1);
+h_tot(4,2) = h(1,2);
+median(Capacities_no_feedback)
+median(Capacities_feedback)
 
-[Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,0,200);
-[Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,,200);
+h_tot;
+
+legend(h_tot(:,1), {'N = 3, M = 3' 'N = 3, M = 20' 'N = 20, M = 3' 'N = 20, M = 20'})
 
 
 
+function [h, Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,K, total_iterations, color,i)
 
-
-function [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,M,K, total_iterations)
-    
     Capacities_no_feedback = zeros(1, total_iterations);
     
     for j = 1:total_iterations
@@ -133,6 +112,23 @@ function [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,
         Q = prev_Q;
         
         Capacities_feedback(j) = log2(det(Identity_N + H*Q*ctranspose(H)));
+
     end
+
+
+    h(1,1) = cdfplot(Capacities_feedback)
+    hold on;
+    h(1,2) = cdfplot(Capacities_no_feedback)
+%     legend_text = sprintf('N = %d, M = %d',N, M);
+%     legend(legend_text)
+    set(h(1,1),'Color',color)
+    set(h(1,2),'Color',color)
+
+
+    xlabel("Capacity [bit/s]")
+    ylabel("Cumulative of capacity")
+% 
 end
+
+
 
