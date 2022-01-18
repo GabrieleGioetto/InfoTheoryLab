@@ -4,7 +4,7 @@ colors = ["r","b"];
 
 clear h_tot
 
-[h,Capacities_no_feedback, Capacities_feedback] = calculate_capacities(5,5,0,200, colors(1));
+[h,Capacities_no_feedback, Capacities_feedback] = calculate_capacities(3,3,0,200, colors(1));
 median(Capacities_no_feedback)
 median(Capacities_feedback)
 prctile(real(Capacities_no_feedback),10)
@@ -13,7 +13,7 @@ h_tot(1,1) = h(1,1);
 h_tot(1,2) = h(1,2);
 
 
-[h, Capacities_no_feedback_LOS, Capacities_feedback_LOS] = calculate_capacities(5,5,50,200, colors(2));
+[h, Capacities_no_feedback_LOS, Capacities_feedback_LOS] = calculate_capacities(3,3,20,200, colors(2));
 median(Capacities_no_feedback_LOS)
 median(Capacities_feedback_LOS)
 prctile(real(Capacities_no_feedback_LOS),10) 
@@ -24,7 +24,7 @@ h_tot(2,2) = h(1,2);
 
 h_tot
 
-legend(h_tot(:,1), {'NO LOS' 'LOS (K = 50)'})
+legend(h_tot(:,1), {'NO LOS' 'LOS (K = 20)'})
 
 
 

@@ -1,4 +1,7 @@
 
+clc
+clear all
+
 max_avg_no_feed = 0;
 max_avg_feed = 0;
 max_avg_no_feed_N = 0;
@@ -157,15 +160,3 @@ function [Capacities_no_feedback, Capacities_feedback] = calculate_capacities(N,
         Capacities_feedback(j) = log2(det(Identity_N + H*Q*ctranspose(H)));
 
     end
-
-
-%     cdfplot(Capacities_feedback)
-%     hold on;
-%     cdfplot(Capacities_no_feedback)
-%     legend("CSIT", "No CSIT")
-%     xlabel("Capacity")
-%     ylabel("Cumulative of capacity")
-%     title('K = 50/ K = 0, MIMO: M = N = 5')
-% 
-end
-
